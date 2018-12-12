@@ -19,11 +19,6 @@ function search(idKey, array){
     }
 }
 
-// GET mark todo as completed
-app.get('/api/todos', function(req, res, next) {
-    res.send(todoList);      
-});
-
 // POST add todo
 app.post('/api/todos/', function(req, res) {
     todoList.push(req.body)
@@ -31,6 +26,7 @@ app.post('/api/todos/', function(req, res) {
  });
 
 // PUT edit todo
+//set the object of that id to the new values passed in
 app.put('/api/todos/:id', function(req, res, next) {
     let id = req.params.id;
     let index = search(id, todoList);
@@ -39,10 +35,20 @@ app.put('/api/todos/:id', function(req, res, next) {
 });
 
 // DELETE delete todo
+//remove the item from the array
 app.delete('/api/todos/:id', function(req, res, next) {
     let id = req.params.id;
     let index = search(id, todoList);
     todoList.splice(index, 1);
+    res.send(todoList);
+});
+
+// PUT mark todo as completed
+//change only the completed value based on the input id
+app.put('/api/todos/complete/:id', function(req, res, next) {
+    let id = req.params.id;
+    let index = search(id, todoList);
+    todoList[index].completed = req.body.completed;
     res.send(todoList);
 });
 
