@@ -19,7 +19,7 @@ function search(idKey, array){
     }
 }
 
-// GET /api/todos
+// GET mark todo as completed
 app.get('/api/todos', function(req, res, next) {
     res.send(todoList);      
 });
@@ -32,7 +32,7 @@ app.post('/api/todos/', function(req, res) {
 
 // PUT edit todo
 app.put('/api/todos/:id', function(req, res, next) {
-    let id = Number(req.params.id);
+    let id = req.params.id;
     let index = search(id, todoList);
     todoList[index] = req.body;
     res.send(todoList);
@@ -40,7 +40,7 @@ app.put('/api/todos/:id', function(req, res, next) {
 
 // DELETE delete todo
 app.delete('/api/todos/:id', function(req, res, next) {
-    let id = Number(req.params.id);
+    let id = req.params.id;
     let index = search(id, todoList);
     todoList.splice(index, 1);
     res.send(todoList);
